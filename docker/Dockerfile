@@ -1,21 +1,13 @@
 # Build stage
-FROM golang:1.20.2 as builder
+FROM golang:1.20.2 as quepasa-source
 
-WORKDIR /build
+WORKDIR /opt/quepasa-source/
 
-COPY /docker/docker-entrypoint.sh .
-COPY /src/ .
+COPY . /opt/quepasa-source/
 
-RUN chmod 755 docker-entrypoint.sh
-RUN go build -o service main.go
+RUN chmod 755 /opt/quepasa-source/docker/docker-entrypoint.sh
+RUN sed -i 's/\r//' /opt/quepasa-source/docker/docker-entrypoint.sh
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-# Run stage
-FROM golang:1.20.2 as src
-
-WORKDIR /opt/quepasa/
-
-COPY --from=builder /build/. /builder/
-COPY --from=builder /build/docker-entrypoint.sh /
-
-ENTRYPOINT ["/docker-entrypoint.sh"]
+ENTRYPOINT ["/opt/quepasa-source/docker/docker-entrypoint.sh"]
 CMD ["sh"]

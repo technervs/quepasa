@@ -14,7 +14,7 @@
 
 2 - Altere o arquivo ``docker/.env.example`` para ``docker/.env``
 
-3 - Edite o ``docker/.env`` com suas configuraçõesçk
+3 - Edite o ``docker/.env`` com suas configurações
 
 4 - Faça esta sequência de comandos:
 ```
@@ -32,5 +32,6 @@ docker-compose up -d --build
 ```
 
 # Corrigir erro de banco de dados sqlite
-
+```
 docker exec -it $(basename $(pwd))_rails_1 sh -c 'RAILS_ENV=production bundle exec rails c'
+```

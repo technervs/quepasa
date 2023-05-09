@@ -3,8 +3,8 @@ version: '3'
 services:
 
   quepasa:
-    image: quepasa
-    container_name: "codeleaks-quepasa"
+    image: quepasa-technervs
+    container_name: "quepasa-source"
     env_file: .env
     ports:
       - 31000:31000
